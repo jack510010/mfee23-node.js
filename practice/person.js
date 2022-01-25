@@ -11,11 +11,10 @@ class person{
         }
     }
     sayHello(){
-        return `Hello, my name is ${this.name}.`;
+        return `Nice to meet you, my name is ${this.name}.`;
     }
 }
-const p1 = new person('Bill', 23);
 
-console.log(p1.sayHello());
-console.log(JSON.stringify(p1.toJSON()));
-console.log(JSON.stringify(p1));
+const f3 = a=> a*a*a;
+
+module.exports = {person, f3}
