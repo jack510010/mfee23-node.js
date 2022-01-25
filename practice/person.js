@@ -6,7 +6,8 @@ class person{
     toJSON(){
         return {
             name: this.name,
-            age: this.age
+            age: this.age,
+            hi: 'abc'
         }
     }
     sayHello(){
@@ -18,5 +19,3 @@ const p1 = new person('Bill', 23);
 console.log(p1.sayHello());
 console.log(JSON.stringify(p1.toJSON()));
 console.log(JSON.stringify(p1));
-
-console.log("h1");
