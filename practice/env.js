@@ -1,0 +1,1 @@
+console.log(process.env); // process.env 意思是可以取得作業系統的環境變數
