@@ -14,7 +14,8 @@ class person{
         return `Nice to meet you, my name is ${this.name}.`;
     }
 }
-
-export const f3 = a=> a*a*a;
-export const f1 = a=> a*a;
+const f3 = a=> a*a*a;
+const f1 = a=> a*a;
+export {f3};
+export {f1};
 export default person;
