@@ -1,3 +1,9 @@
 .vscode
 node_modules
 package-lock.json
+fetch01.html
+promise.html
+promise2.html
+test.json
+promiseFetch01.html
+promiseAsyncAwait.html
