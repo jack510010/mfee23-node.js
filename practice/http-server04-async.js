@@ -6,10 +6,7 @@ const server = http.createServer(async function(req,res) {
         'Content-Type': 'text/html; charset=utf-8'
     })
     try{
-        await fs.writeFile(__dirname + '/headers3.txt', JSON.stringify(req.headers, null,4))
-        .then(()=>{
-            res.end('ok');
-        }); 
+        await fs.writeFile(__dirname + '/headers3.txt', JSON.stringify(req.headers, null,4)); 
     }catch(ex){
         return res.end('error', ex)
     }
