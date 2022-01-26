@@ -4,10 +4,19 @@ const express = require('express');
 
 const app = express();
 
+app.set('view engine', 'ejs');
+
+/*
+app.get('/a.html', (req, res)=>{
+    res.send(`<h2>動態內容</h2> <p>${Math.random()}</p>`)
+});
+*/
+
+app.use(express.static('public'));
 
 // 路由定義開始: Begin
 app.get('/', (req, res)=>{
-    res.send('<h2>Hello</h2>')
+    res.render('home', {name: 'albert'})
 });
 
 
