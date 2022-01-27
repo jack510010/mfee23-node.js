@@ -1,1 +1,11 @@
-<h2><%= name %></h2>
+<%- include('parts/html-head') %> 
+<%- include('parts/navbar') %> 
+
+<div class="container">
+    <h2><%= name %></h2>
+    <i class="fab fa-youtube"></i>
+</div>
+
+<%- include('parts/scripts') %>
+<script>$('.fa-youtube').css('font-size', '3rem').css('color', 'red') </script> 
+<%- include('parts/html-foot') %> 
