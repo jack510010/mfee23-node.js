@@ -1,0 +1,54 @@
+<%- include('parts/html-head') %> 
+<%- include('parts/navbar') %> 
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form>
+                <div class="mb-3">
+                  <label for="orderByCol" class="form-label">欄位</label>
+                  <select class="form-select" id="orderByCol" name="orderByCol">  
+                    <option value="name">name</option>
+                    <option value="age">age</option>
+                    <option value="id">id</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="orderByRule" class="form-label">規則</label>
+                  <select class="form-select" id="orderByRule" name="orderByRule">
+                    
+                    <option value="asc">由小到大</option>
+                    <option value="desc">由大到小</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">送出</button>
+              </form>
+
+
+            <table class="table table-dark table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">編號</th>
+                    <th scope="col">姓名</th>
+                    <th scope="col">年齡</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                <% for(let i of sales){ %> 
+                  <tr>
+                    <td><%= i.id %> </div></td>
+                    <td><%= i.name %> </div></td>
+                    <td><%= i.age %> </div></td>                            
+                  </tr>
+                <% } %> 
+                </tbody>
+              </table>
+        </div>
+    </div>      
+    
+</div>
+
+<%- include('parts/scripts') %>
+<script>$('.fa-youtube').css('font-size', '3rem').css('color', 'red') </script> 
+<%- include('parts/html-foot') %> 
