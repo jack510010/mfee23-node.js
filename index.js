@@ -134,6 +134,8 @@ app.get(/^\/mobile\/09\d{2}-?\d{3}-?\d{3}$/i , (req, res) => {
 app.use(require('./routes/admin2'));   // require 『 routes 』資料夾裡面的『 admin2 』檔案
 // 當成middleware來使用
 
+app.use('/banana', require('./routes/admin3'));
+
 //-------------------------------以上是routes--------------------------------------------
 
 
