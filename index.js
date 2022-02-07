@@ -25,6 +25,31 @@ app.use(express.urlencoded({extended: false}));  // 設定成top-level middlewar
 app.use(express.json());                         // 設定成top-level middleware
 app.use(express.static('public'));
 
+
+//--------------------------------以下是自訂頂層的 middleware-----------------------------------------------
+
+app.use((req, res, next) => {
+    res.locals.aaa = 'hello'
+    res.locals.title = '小雍的網站';  // title  會進到template裡面
+
+    res.locals.pageName = '';
+
+    // 設定 template 的 helper func;
+
+    res.locals.dateToString = date => moment(date).format('YYYY-MMM-Do');
+    // dateToString  會進到template裡面。 傳一個date物件進來，將它轉換成moment()格式
+
+    res.locals.dateTimeToString = dateTime => moment(dateTime).format('YYYY-MMM-Do, HH:mm:ss');
+    // dateTimeToString  會進到template裡面。  傳一個dateTime物件進來，將它轉換成moment()格式
+    
+    
+    next();   // 呼叫下一個。 如果沒有呼叫下一個他就什麼事都不做。
+});
+
+//--------------------------------以上是自訂頂層的 middleware-----------------------------------------------
+
+
+
 // 路由定義開始: Begin
 app.get('/', (req, res)=>{
     res.render('home', {name: 'albert'})
@@ -135,8 +160,18 @@ app.use(require('./routes/admin2'));   // require 『 routes 』資料夾裡面�
 // 當成middleware來使用
 
 app.use('/banana', require('./routes/admin3'));
+// 當成middleware來使用
 
 //-------------------------------以上是routes--------------------------------------------
+
+
+//---------------------------------以下是session-------------------------------------------------
+
+
+
+
+
+//---------------------------------以上是session-------------------------------------------------
 
 
 // 所有路由的後面 res.status(404)
