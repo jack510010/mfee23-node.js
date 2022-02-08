@@ -7,6 +7,8 @@ const multer = require('multer');
 //const upload = require({dest: 'tmp_uploads/'})  // 檔案上傳後的資料要放在哪裡
 const upload = require(__dirname + '/modules/upload-imgs');
 const fs = require('fs').promises;
+const db = require('./modules/connect-db');
+
 
 const app = express();
 
@@ -211,6 +213,17 @@ app.get('/try-moment', (req, res) => {
 });
 
 //---------------------------------以上是moment-------------------------------------------------
+
+
+//---------------------------------以下是mysql2-------------------------------------------------
+
+app.get('/try-db', async (req, res) => {
+    const sql = `SELECT * FROM address_book LIMIT 5`;
+
+    const [result, fields] = await db.query(sql);
+
+    res.json(result);
+})
 
 
 // 所有路由的後面 res.status(404)
