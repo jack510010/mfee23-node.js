@@ -7,7 +7,7 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    waitForConnections: true,
+    waitForConnections: true,    // 無可用連線時是否等待pool連線釋放(預設為true)
     connectionLimit: 5,  // 最大連線數
     queueLimit: 0  // 排隊
     
