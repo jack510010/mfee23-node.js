@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const session = require('express-session');
 const multer = require('multer');
 //const upload = require({dest: 'tmp_uploads/'})  // 檔案上傳後的資料要放在哪裡
 const upload = require(__dirname + '/modules/upload-imgs');
@@ -21,10 +22,19 @@ app.get('/a.html', (req, res)=>{
 
 // 設定靜態檔目錄
 // 靜態檔目錄要放在路由最前面
+// 設定成top-level middleware
 app.use(express.urlencoded({extended: false}));  // 設定成top-level middleware
 app.use(express.json());                         // 設定成top-level middleware
 app.use(express.static('public'));
 
+app.use(session({
+    saveUninitialized:false,    // 新用戶沒有使用到 session 物件時不會建立 session 和發送 cookie
+    resave:false,
+    secret:'fvnfdjbnjtghiuqervkfjlb',  // 隨便打
+    cookie:{
+        maxAge: 1200000   // 存活時間  單位毫秒
+    }
+}));
 
 //--------------------------------以下是自訂頂層的 middleware-----------------------------------------------
 
@@ -167,7 +177,11 @@ app.use('/banana', require('./routes/admin3'));
 
 //---------------------------------以下是session-------------------------------------------------
 
-
+app.get('/try-session',(req, res) => {
+    req.session.count = req.session.count || 0;
+    req.session.count++;
+    res.json(req.session);
+});
 
 
 
