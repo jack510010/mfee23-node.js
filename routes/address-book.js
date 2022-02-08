@@ -3,9 +3,7 @@ const db = require('./../modules/connect-db');
 // 路由模組化
 const router = express.Router();
 
-
-
-router.get('/list', async (req, res)=>{
+async function getListData(req, res) {
     const perPage = 5;
 
     let page = req.query.page ? parseInt(req.query.page) : 1;
@@ -38,13 +36,27 @@ router.get('/list', async (req, res)=>{
 
         const sql = `SELECT * FROM address_book LIMIT ${perPage * (page - 1)}, ${perPage}`;
         const [result2] = await db.query(sql);
+        result2.forEach(el => el.birthday = res.locals.dateToString(el.birthday));
         output.rows = result2;
 
         
     };
+    return output;
+}
 
-    // res.json(output);
-    res.render('address-book/list', output);
+router.get('/list', async (req, res)=>{
+    
+    res.render('address-book/list', await getListData(req, res));
+   
 });
+
+router.get('api/list', async (req, res)=>{
+    
+    res.json(await getListData(req, res));
+   
+});
+
+
+
 
 module.exports = router;
