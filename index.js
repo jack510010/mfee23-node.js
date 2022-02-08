@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const session = require('express-session');
+const moment = require('moment-timezone');
 const multer = require('multer');
 //const upload = require({dest: 'tmp_uploads/'})  // 檔案上傳後的資料要放在哪裡
 const upload = require(__dirname + '/modules/upload-imgs');
@@ -32,7 +33,8 @@ app.use(session({
     resave:false,
     secret:'fvnfdjbnjtghiuqervkfjlb',  // 隨便打
     cookie:{
-        maxAge: 1200000   // 存活時間  單位毫秒
+        maxAge: 1200000,   // 存活時間  單位毫秒
+        httpOnly: false,
     }
 }));
 
@@ -186,6 +188,29 @@ app.get('/try-session',(req, res) => {
 
 
 //---------------------------------以上是session-------------------------------------------------
+
+
+//---------------------------------以下是moment-------------------------------------------------
+
+app.get('/try-moment', (req, res) => {
+    const fm = 'YYYY-MMM-Do, HH:mm:ss';
+    res.json({
+        m1: moment().format(fm), // moment() 裡面可以放字串或放自己想要的格式類型
+        m2: moment().tz('Europe/Paris').format(fm),
+        m3: moment().tz('Europe/London').format(fm),
+        m4: moment().tz('Asia/Tokyo').format(fm),
+        m5: moment().tz('Asia/Seoul').format(fm),
+        m6: moment().tz('Australia/Sydney').format(fm),
+        m7: moment().tz('Africa/Cairo').format(fm),
+        m8: moment().tz('America/Los_Angeles').format(fm),
+        m9: moment().tz('Pacific/Auckland').format(fm),
+        m10: moment(req.session.cookie.expires).format(fm),
+        m11: moment(req.session.cookie.expires).tz('Pacific/Auckland').format(fm),
+       
+    });
+});
+
+//---------------------------------以上是moment-------------------------------------------------
 
 
 // 所有路由的後面 res.status(404)
