@@ -80,7 +80,7 @@ app.get('/json-sales', (req, res)=>{
         let sortCol = req.query.orderByCol;
         let sortRule = req.query.orderByRule;
 
-        console.log('sortCol',sortCol, 'sortRule', sortRule);56
+        console.log('sortCol',sortCol, 'sortRule', sortRule);
         sales.sort((a,b) => {
             if(sortRule === 'asc'){
 
