@@ -20,9 +20,9 @@ router.get('/list', async (req, res)=>{
 
     const totalSql = `SELECT COUNT(1) num FROM address_book`;
 
-    const [result] = await db.query(totalSql);
+    const [result1] = await db.query(totalSql);
 
-    const totalRows = result[0].num;
+    const totalRows = result1[0].num;
 
     let totalPages = 0;
 
@@ -30,7 +30,9 @@ router.get('/list', async (req, res)=>{
         output.totalPages = Math.ceil(totalRows/totalPages);
         output.totalRows = totalRows;
 
-
+        const sql = `SELECT * FROM address_book LIMIT ${perPage * (page - 1)}, ${perPage}`;
+        const [result2] = await db.query(sql);
+        output.rows = result2;
     };
 
     res.json(output);
