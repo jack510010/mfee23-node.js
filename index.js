@@ -1,13 +1,14 @@
 require('dotenv').config();
-
 const express = require('express');
 const session = require('express-session');
+const MysqlStore = require('express-mysql-session')(session);
 const moment = require('moment-timezone');
 const multer = require('multer');
 //const upload = require({dest: 'tmp_uploads/'})  // 檔案上傳後的資料要放在哪裡
 const upload = require(__dirname + '/modules/upload-imgs');
 const fs = require('fs').promises;
 const db = require('./modules/connect-db');
+const sessionStore = new MysqlStore({}, db);
 
 
 const app = express();
@@ -34,9 +35,10 @@ app.use(session({
     saveUninitialized:false,    // 新用戶沒有使用到 session 物件時不會建立 session 和發送 cookie
     resave:false,
     secret:'fvnfdjbnjtghiuqervkfjlb',  // 隨便打
+    store: sessionStore,
     cookie:{
         maxAge: 1200000,   // 存活時間  單位毫秒
-        httpOnly: false,
+        httpOnly: true, 
     }
 }));
 
