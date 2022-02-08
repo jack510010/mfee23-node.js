@@ -50,7 +50,7 @@ router.get('/list', async (req, res)=>{
    
 });
 
-router.get('api/list', async (req, res)=>{
+router.get('/api/list', async (req, res)=>{
     
     res.json(await getListData(req, res));
    
