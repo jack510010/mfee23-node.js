@@ -58,7 +58,7 @@ async function getListData(req, res) {
 }
 
 router.get('/list', async (req, res)=>{
-    
+    res.locals.pageName = 'address-book list';
     res.render('address-book/list', await getListData(req, res));
 
 });
@@ -69,6 +69,18 @@ router.get('/api/list', async (req, res)=>{
 
 });
 
+
+router.get('/add', async (req, res)=>{
+    res.locals.pageName = 'address-book add';
+    res.render('address-book/add');
+
+});
+
+router.post('/add', async (req, res)=>{
+    
+    
+
+});
 
 
 
