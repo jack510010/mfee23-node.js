@@ -30,6 +30,7 @@ app.get('/a.html', (req, res)=>{
 app.use(express.urlencoded({extended: false}));  // 設定成top-level middleware
 app.use(express.json());                         // 設定成top-level middleware
 app.use(express.static('public'));
+app.use(express.static('node_modules/joi'));
 
 app.use(session({
     saveUninitialized:false,    // 新用戶沒有使用到 session 物件時不會建立 session 和發送 cookie
