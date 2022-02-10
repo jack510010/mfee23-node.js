@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+</head>
+<body>
+    <pre id="rockman"></pre>
+
+
+   
+
+
+<script>
+
+
+
+        // fetch('albert:3000/address-book/api/list',) 
+        // .then(r=>r.json())
+        // .then(obj=>{
+        //     console.log(obj);
+        //     document.querySelector('#rockman').innerText = JSON.stringify(obj,null,2);
+        // });
+
+       
+
+        // fetch('http://localhost:3000/address-book/api/list', ).then(r=>r.json())
+        // .then(obj=>{
+        //     console.log(obj);
+        //     document.querySelector('#rockman').innerText = JSON.stringify(obj, null, 4);
+        // })
+
+        // fetch('localhost:3000/address-book/api/list', ).then(r=>r.json())
+        // .then(obj=>{
+        //     console.log(obj);
+        //     document.querySelector('#rockman').innerText = JSON.stringify(obj, null, 4);
+        // })
+
+        // fetch('http://localhost:3000/address-book/api/list', ).then(r=>r.json())
+        // .then(obj=>{
+        //     console.log(obj);
+        //     document.querySelector('#rockman').innerText = JSON.stringify(obj, null, 4);
+        // })
+
+        fetch('http://localhost:3000/address-book/api/list', ).then(r=>r.json())
+        .then(obj=>{
+            console.log(obj);
+            document.querySelector('#rockman').innerText = JSON.stringify(obj, null, 4);
+        })
+
+        
+
+    
+
+</script>
+</body>
+</html>
