@@ -27,10 +27,10 @@ app.get('/a.html', (req, res)=>{
 // 設定靜態檔目錄
 // 靜態檔目錄要放在路由最前面
 // 設定成top-level middleware
-app.use(express.urlencoded({extended: false}));  // 設定成top-level middleware
-app.use(express.json());                         // 設定成top-level middleware
+app.use(express.urlencoded({extended: false}));  // 設定成top-level middleware  處理 application/x-www-form-urlencoded
+app.use(express.json());                         // 設定成top-level middleware  處理 application/json
 app.use(express.static('public'));
-app.use(express.static('node_modules/joi'));
+app.use('/joi', express.static('node_modules/joi/dist/'));
 
 app.use(session({
     saveUninitialized:false,    // 新用戶沒有使用到 session 物件時不會建立 session 和發送 cookie
@@ -201,7 +201,7 @@ app.get('/try-session',(req, res) => {
 //---------------------------------以下是moment-------------------------------------------------
 
 app.get('/try-moment', (req, res) => {
-    const fm = 'YYYY-MMM-Do, HH:mm:ss';
+    const fm = 'YYYY-MM-DD, HH:mm:ss';
     res.json({
         m1: moment().format(fm), // moment() 裡面可以放字串或放自己想要的格式類型
         m2: moment().tz('Europe/Paris').format(fm),
