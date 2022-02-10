@@ -53,7 +53,7 @@ app.use((req, res, next) => {
 
     // 設定 template 的 helper func;
 
-    res.locals.dateToString = date => moment(date).format('YYYY-MMM-Do');
+    res.locals.dateToString = date => moment(date).format('YYYY-MM-DD');
     // dateToString  會進到template裡面。 傳一個date物件進來，將它轉換成moment()格式
 
     res.locals.dateTimeToString = dateTime => moment(dateTime).format('YYYY-MMM-Do, HH:mm:ss');
