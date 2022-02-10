@@ -11,23 +11,23 @@
                     <form name="form1" onsubmit="checkForm(); return false;">
                         <div class="mb-3">
                             <label for="name" class="form-label">name</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="name" name="name" value="<%= name %>">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            <input type="email" class="form-control" id="email" name="email" value="<%= email %>">
                         </div>
                         <div class="mb-3">
                             <label for="mobile" class="form-label">mobile</label>
-                            <input type="text" class="form-control" id="mobile" name="mobile">
+                            <input type="text" class="form-control" id="mobile" name="mobile" value="<%= mobile %>">
                         </div>
                         <div class="mb-3">
                             <label for="birthday" class="form-label">birthday</label>
-                            <input type="date" class="form-control" id="birthday" name="birthday">
+                            <input type="date" class="form-control" id="birthday" name="birthday" value="<%=dateToString(birthday)%>">
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">address</label>
-                            <input type="text" class="form-control" id="address" name="address">
+                            <input type="text" class="form-control" id="address" name="address" value="<%= address %>">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -42,27 +42,18 @@
 
 <script>
     // 除錯用 const locals = <%- JSON.stringify(locals) %>;
+
+
     function checkForm(){
         // 資料檢查
         const fd = new FormData(document.form1);
 
-        const usp = new URLSearchParams(fd);
-        // console.log([...usp]);
         const dataObj = {};
 
         for(let i of fd){
             dataObj[i[0]] = i[1];
         }
         console.log({dataObj});
-
-        fetch('/address-book/add2', {
-            method: 'POST',
-            body: fd,
-        })
-        .then(r => r.json())
-        .then(obj => {
-            console.log(obj);
-        })
 
         fetch('', {
             method: 'POST',
@@ -74,39 +65,15 @@
         .then(r => r.json())
         .then(obj => {
             console.log(obj);
+            if(!obj.success){
+                alert("沒有修改喔～～");
+            }else{
+                alert("更改完成～～")
+            }
         })
     }
 
     
-    // let Joi = {...joi};
-//     const schema = joi.object({
-//     username: joi.string()
-//         .alphanum()
-//         .min(6)
-//         .max(20)
-//         .required(),
 
-//     age: joi.number()
-//         .required(),
-
-//     birth_year: joi.number()
-//         .integer()
-//         .min(1900)
-//         .max(2022),
-
-//     password: joi.string()
-//         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-
-//     repeat_password: joi.ref('password'),
-
-// });
-
-// console.log(schema.validate({
-//     username:'abcdef', 
-//     age: 30, 
-//     birth_year: 2013, 
-//     password: 'Jack510010', 
-//     repeat_password: 'Jack510010'
-// }));
 </script>
 <%- include('../parts/html-foot') %> 

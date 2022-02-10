@@ -7,7 +7,7 @@
             <nav aria-label="Page navigation example">
 
                 <ul class="pagination justify-content-center">
-
+                    
                     <li class="page-item <%= page == 1 ? 'disabled' : '' %>">
                         <a class="page-link " href="?<%- new URLSearchParams({...conditions, page: 1})%>">
                             <i class="fas fa-angle-double-left"></i>
@@ -51,24 +51,36 @@
             <table class="table table-striped table-bordered table-warning">
                 <thead>
                     <tr>
+                        <th scope="col"><i class="fas fa-times"></i></th>
                         <th scope="col">#</th>
                         <th scope="col">name</th>
                         <th scope="col">email</th>
                         <th scope="col">mobile</th>
                         <th scope="col">birthday</th>
                         <th scope="col">address</th>
-            
+                        <th scope="col"><i class="far fa-edit"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                 <% for(let i of rows) { %>
                     <tr>
+                        <td>
+                            <a href="/address-book/delete/<%= i.sid %>" 
+                                onclick="return confirm('確定要刪除編號為<%= i.sid %>的資料嗎？')">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        </td>
                         <td><%= i.sid %> </td>
                         <td><%= i.name %> </td>
                         <td><%= i.email %> </td>
                         <td><%= i.mobile %> </td>
                         <td><%= i.birthday %> </td>
                         <td><%= i.address %> </td>
+                        <td>
+                            <a href="/address-book/edit/<%= i.sid %>">
+                                <i class="far fa-edit"></i>
+                            </a>
+                        </td>
                     </tr>
                 <% } %>
                 </tbody>
@@ -81,5 +93,7 @@
 
 <script>
     // 除錯用 const locals = <%- JSON.stringify(locals) %>;
+
+
 </script>
 <%- include('../parts/html-foot') %> 
