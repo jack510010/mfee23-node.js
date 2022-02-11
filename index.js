@@ -10,6 +10,8 @@ const fs = require('fs').promises;
 const db = require('./modules/connect-db');
 const sessionStore = new MysqlStore({}, db);
 const cors = require('cors');
+const fetch = require('node-fetch');
+const axios = require('axios');
 
 
 const app = express();
@@ -28,7 +30,14 @@ app.get('/a.html', (req, res)=>{
 // 設定靜態檔目錄
 // 靜態檔目錄要放在路由最前面
 // 設定成top-level middleware
-app.use(cors());
+const corsOptions = {
+    credentials: true,
+    origin: function(origin, cb){
+        console.log({origin});
+        cb(null, true);
+    }
+};
+app.use(cors(corsOptions));
 app.use(express.urlencoded({extended: false}));  // 設定成top-level middleware  處理 application/x-www-form-urlencoded
 app.use(express.json());                         // 設定成top-level middleware  處理 application/json
 app.use(express.static('public'));
@@ -244,6 +253,23 @@ app.use('/address-book', require('./routes/address-book'));
 
 
 //---------------------------------以上是address-book-------------------------------------------------
+
+
+app.get('/yahoo', async (req, res)=>{
+    fetch('https://tw.yahoo.com/')
+    .then(r=>r.text())
+    .then(txt=>{
+        res.send(txt);
+    })
+});
+
+app.get('/yahoo2', async (req, res)=>{
+
+    const response = await axios.get('https://tw.yahoo.com/');
+    console.log(response);
+    res.send(response.data);
+
+});
 
 // 所有路由的後面 res.status(404)
 app.use((req, res) => {
