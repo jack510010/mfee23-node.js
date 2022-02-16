@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="myinput" multiple>
+    <div id="imgs"></div>
+
+
+    <script>
+        const myinput = document.querySelector('#myinput');
+        const imgs = document.querySelector('#imgs');
+
+        const whenLoaded = event => {
+            /*
+            const img = new Image();
+            img.width = 200;
+            img.src = event.target.result;
+            imgs.append(img);
+            */
+            const el = `<div class="aa">
+                <img src="${event.target.result}" width="200">
+                </div>`;
+            imgs.innerHTML += el;
+
+        };
+
+        myinput.addEventListener('change', event => {
+            imgs.innerHTML = '';
+            console.log(myinput.files);
+
+            for(let f of myinput.files) {
+                const fr = new FileReader();
+                fr.addEventListener('load', whenLoaded);
+                fr.readAsDataURL(f);
+            }
+
+
+
+
+        });
+
+
+    </script>
+
+
+</body>
+</html>

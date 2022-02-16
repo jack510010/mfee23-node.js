@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drag</title>
+    <style>
+        .box {
+            position: absolute;
+            width: 600px;
+            height: 400px;
+            background-color: rgb(252, 230, 230);
+            border: black solid 1px;
+            left: 0;
+            top: 0;
+        }
+        .ball {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #5d5dfd;
+            border: black solid 1px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            left: 10px;
+            top: 50px;
+            cursor: pointer;
+            /* pointer-events: none; */
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="ball">1</div>
+    <div class="ball" style="left:70px; background-color: blue;">2</div>
+    <div class="ball" style="left:140px; background-color: green;">3</div>
+
+</div>
+
+
+<script src="./javascripts/jquery-3.6.0.min.js"></script>
+
+<script>
+    // 還不能拖拉，尚未完成
+
+    const box = $('.box');
+    let dragTarget = null;  // 拖拉的對象
+
+    const MDown = function(event){
+        const t = $(event.target);
+        const c = $(event.currentTarget);
+        console.log('t:', t);
+        console.log('c:', c);
+        if(t.hasClass('ball')){
+            dragTarget = t;
+            console.log(dragTarget);
+
+            box.on('mousemove', MMove);
+        }
+
+
+    };
+    const MUp = function(event){
+        box.off('mousemove', MMove);
+    };
+    const MMove = function(event){
+
+    };
+    box.on('mousedown', MDown);
+    $(window).on('mouseup', MUp);
+
+
+    /*
+    let dragTarget = null;  // 拖拉的對象
+    const box = $('.box');
+    const ball = $('.ball');
+    const listener = function(event){
+        console.log(event.type, event.target);
+    };
+
+    box.eq(0).on('dragstart', function(event){
+        dragTarget = $(event.target);
+    });
+
+
+    box.eq(1).on('dragover', function(event){
+        event.preventDefault();
+    });
+    box.eq(1).on('drop', function(event){
+        const t = $(event.target);
+        if(t.hasClass('box')){
+            if(dragTarget){
+                const clone = dragTarget.clone();
+                clone.removeAttr('draggable');
+                t.append( clone );
+            }
+        }
+        dragTarget = null;
+    });
+
+*/
+
+
+</script>
+</body>
+</html>

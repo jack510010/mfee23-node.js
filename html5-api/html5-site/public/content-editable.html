@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #info {
+            border: 2px dotted blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="info" contenteditable="true">
+        Hello<br>
+        泥好
+        dsfg
+    </div>
+
+    <script>
+        const info = document.querySelector('#info');
+
+
+        info.addEventListener('keyup', function(){
+            //console.log(info.innerHTML);
+            console.log(info.innerText);
+            localStorage.setItem('mydata', info.innerText);
+        });
+
+        const defaultData = localStorage.getItem('mydata');
+        if(defaultData){
+            info.innerText = defaultData;
+        }
+
+
+    </script>
+
+</body>
+</html>

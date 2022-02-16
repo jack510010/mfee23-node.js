@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drag</title>
+    <style>
+        .box {
+            position: absolute;
+            width: 600px;
+            height: 400px;
+            background-color: rgb(252, 230, 230);
+            border: black solid 1px;
+            left: 0px;
+            top: 0px;
+        }
+        .ball {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #5d5dfd;
+            border: black solid 1px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            left: 10px;
+            top: 50px;
+            cursor: pointer;
+            user-select: none;
+            /* pointer-events: none; */
+        }
+        .rect {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #fdaa5d;
+            border: black solid 1px;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            left: 10px;
+            top: 150px;
+            cursor: pointer;
+            user-select: none;  /* user-select 文字是否能選取 */
+             /* pointer-events: none;   針對滑鼠事件 */
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="ball">1</div>
+    <div class="ball my-draggable" style="left:70px; background-color: blue;">2</div>
+    <div class="ball my-draggable" style="left:140px; background-color: green;">3</div>
+    <div class="rect my-draggable">4</div>
+</div>
+
+
+<script src="./javascripts/jquery-3.6.0.min.js"></script>
+
+<script>
+    // 可以拖拉，還是有bug，未完成
+
+    const box = $('.box');
+    // 拖拉的對象
+    let dragTarget = {
+        t: null,
+        dx: 0,
+        dy: 0,
+    };  
+
+    const MDown = function(event){
+        const t = $(event.target);
+        const c = $(event.currentTarget);
+        console.log('t:', t);
+        console.log('c:', c);
+        if(t.hasClass('my-draggable')){
+            box.append(t);
+
+            dragTarget.t = t;
+
+            dragTarget.dx = event.offsetX;
+
+            dragTarget.dy = event.offsetY;
+
+            console.log(dragTarget);
+
+            box.on('mousemove', MMove);
+        }
+
+
+    };
+    const MUp = function(event){
+        dragTarget.t = null;
+
+        box.off('mousemove', MMove);
+    };
+
+    const MMove = function(event){
+        if(! dragTarget.t) return;
+        dragTarget.t.css({
+            left: event.pageX - dragTarget.dx + 'px',
+            top: event.pageY - dragTarget.dy + 'px',
+        });
+    };
+    box.on('mousedown', MDown);
+    $(window).on('mouseup', MUp);
+
+
+    /*
+    let dragTarget = null;  // 拖拉的對象
+    const box = $('.box');
+    const ball = $('.ball');
+    const listener = function(event){
+        console.log(event.type, event.target);
+    };
+
+    box.eq(0).on('dragstart', function(event){
+        dragTarget = $(event.target);
+    });
+
+
+    box.eq(1).on('dragover', function(event){
+        event.preventDefault();
+    });
+    box.eq(1).on('drop', function(event){
+        const t = $(event.target);
+        if(t.hasClass('box')){
+            if(dragTarget){
+                const clone = dragTarget.clone();
+                clone.removeAttr('draggable');
+                t.append( clone );
+            }
+        }
+        dragTarget = null;
+    });
+
+*/
+
+
+</script>
+</body>
+</html>
